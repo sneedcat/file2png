@@ -1,8 +1,20 @@
 #[test]
 fn check_file_name() {
     assert_eq!(file2png::file_name("../../test.png"), "test.png");
+}
+
+#[test]
+#[cfg(target_family="windows")]
+fn check_file_name_windows() {
     assert_eq!(file2png::file_name("C:\\Random\\random.input"), "random.input");
 }
+
+#[test]
+#[cfg(target_family="unix")]
+fn check_file_name_unix() {
+    assert_eq!(file2png::file_name("/home/random/random.input"), "random.input");
+}
+
 
 #[test]
 fn check_conversion() {
