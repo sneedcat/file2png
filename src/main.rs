@@ -10,7 +10,6 @@ fn main() {
     let args: args::Args = argh::from_env();
     match args.command {
         Command::Store(store) => {
-
             // Data vector
             let mut data = std::fs::read(&store.input).unwrap();
 
@@ -24,7 +23,7 @@ fn main() {
 
             let mut sha_header = str_to_vec(&format!("###SHA256: {} :652AHS###\n", sha_string));
 
-            let mut version_header = str_to_vec(&format!("###VERSION: {} :NOISREV###\n", "0.1.0"));
+            let mut version_header = str_to_vec(&format!("###VERSION: {} :NOISREV###\n", "0.1.1"));
 
             let mut util_header = str_to_vec(&format!(
                 "###UTIL:  Decode: https://github.com/meguminloli/file2png#readme  :LITU###\n"
@@ -65,14 +64,14 @@ fn main() {
             }
 
             data.append(&mut endline);
-            
+
             let w = BufWriter::new(file);
 
             // Setup the encoder
             let mut encoder = png::Encoder::new(w, resol as u32, resol as u32);
             encoder.set_color(png::ColorType::RGB);
             encoder.set_depth(png::BitDepth::Eight);
-            
+
             // Write the content to the output file
             let mut writer = encoder.write_header().unwrap();
             writer.write_image_data(&data).unwrap();
@@ -101,7 +100,7 @@ fn main() {
                 name.to_string()
             };
 
-            // Get the length of the intial file
+            // Get the length of the initial file
             let size_regex = Regex::new(r"###SIZE: (.*?) :EZIS###").unwrap();
             let len = if let Some(m) = size_regex.find(&header) {
                 match m.group(1) {
@@ -117,16 +116,16 @@ fn main() {
             } else {
                 data.len()
             };
-            
+
             let mut initial_data = &data[0..len];
 
             let sha_regex = Regex::new(r"###SHA256: (.*?) :652AHS###").unwrap();
             if let Some(m) = sha_regex.find(&header) {
                 match m.group(1) {
                     Some(range) => {
-                        if let Ok(hashsum) = &header[range.start..range.end].parse::<String>() {
+                        if let Ok(hash_sum) = &header[range.start..range.end].parse::<String>() {
                             let result = hash_vec(initial_data);
-                            if result != *hashsum {
+                            if result != *hash_sum {
                                 panic!("The hash isn't the same as the original hash");
                             }
                         }
@@ -138,7 +137,7 @@ fn main() {
         }
         Command::Info(info) => {
             let data = get_png_bytes(&info.input);
-            // Workaround because regex systems works only with valid utf-8 sequecences
+            // Workaround because regex systems works only with valid UTF-8 sequences
             let s = get_starting_point(&data);
             // Check for every possible header
             let re = Regex::new(r"###(NAME|SIZE|SHA256|VERSION|COMMENT): (.+?) :.+###").unwrap();

@@ -4,7 +4,7 @@ use std::path::Path;
 use hex::ToHex;
 use sha2::{Digest, Sha256};
 
-/// hash_vec returns the sha 256 hashsum of a `&[u8]` as a string
+/// hash_vec returns the sha256 hash sum of a `&[u8]` as a string
 pub fn hash_vec(v: &[u8]) -> String {
     let mut hasher = Sha256::new();
     hasher.update(v);

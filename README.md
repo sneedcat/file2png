@@ -11,6 +11,21 @@ it should work on every system where you can find Rust.
 I tried to keep the dependencies as low as possible, that's why I used argh and regress 
 instead of the more popular clap and regex crates.
 
+## Building file2png
+To build it for release,
+```sh
+cargo build --release
+```
+
+To debug it,
+```sh
+cargo build
+```
+
+On my system, the build (with all the dependencies) takes less than 12 seconds in release.
+
+For smaller binaries and maybe improved performance, check out [min-sized-rust](https://github.com/johnthagen/min-sized-rust).
+
 ## Usage
 To store a file as a png:
 ```sh
@@ -35,6 +50,12 @@ To check the metadata
 ```sh
 file2png info <input>
 ```
+
+## Benchmarks
+
+![Store performance](images/store.png)
+![Info performance](images/info.png)
+![Restore performance](images/restore.png)
 
 ## Licensing
 This project is licensed under GPLv3, because the original script was under the same
