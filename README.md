@@ -11,7 +11,13 @@ it should work on every system where you can find Rust.
 I tried to keep the dependencies as low as possible, that's why I used argh and regress 
 instead of the more popular clap and regex crates.
 
-## Building file2png
+## Installing file2png
+To install file2png, you can use `cargo install file2png` or build it from source.
+
+To build from source, first
+```sh
+git clone https://github.com/meguminloli/file2png
+```
 To build it for release,
 ```sh
 cargo build --release

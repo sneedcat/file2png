@@ -1,13 +1,16 @@
 [package]
 name = "file2png"
 version = "0.1.1"
+authors = ["meguminloli <meguminloli@protonmail.com>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "GPL-3.0"
+description = "A program to embed files into pngs"
+keywords = ["png"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 argh = "0.1.5"
-png = "*"
+png = "0.16.8"
 sha2 = "0.9.5"
 hex = "0.4"
 regress = "0.4"
